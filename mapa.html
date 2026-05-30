@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa dos Guardiões da Verdade V2</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(rgba(245,222,179,.92),rgba(222,184,135,.92));
+min-height:100vh;
+color:#4b2e00;
+}
+.screen{display:none;padding:20px}
+.active{display:block}
+h1,h2{text-align:center}
+.map{
+position:relative;
+max-width:900px;
+height:550px;
+margin:20px auto;
+background:rgba(255,248,220,.45);
+border:3px solid #8b5a2b;
+border-radius:20px;
+}
+.point{
+position:absolute;
+width:75px;height:75px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:bold;
+color:white;
+cursor:pointer;
+background:#777;
+}
+.unlocked{background:#ff7b00;box-shadow:0 0 20px #ff7b00}
+.done{background:#00a651}
+#p0{top:50px;left:45%}
+#p1{top:130px;left:25%}
+#p2{top:220px;left:58%}
+#p3{top:300px;left:30%}
+#p4{top:380px;left:60%}
+#p5{top:460px;left:45%}
+.chest{position:absolute;right:40px;bottom:30px;font-size:70px}
+.progress{height:18px;background:#c9a56b;margin:15px;border-radius:20px;overflow:hidden}
+.bar{height:100%;width:0;background:#ff7b00;transition:.5s}
+.card{
+max-width:700px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+}
+button{
+width:100%;
+padding:14px;
+margin:8px 0;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+.option{background:#eee}
+.next{background:#ff7b00;color:white}
+.success{color:green}
+.fail{color:red}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<div id="mapScreen" class="screen active">
+<h1>🗺️ Mapa dos Guardiões da Verdade</h1>
+<p style="text-align:center">Clique nos pontos para avançar na jornada.</p>
+<div class="map">
+<div class="point unlocked" id="p0" onclick="openMission(0)">1</div>
+<div class="point" id="p1">2</div>
+<div class="point" id="p2">3</div>
+<div class="point" id="p3">4</div>
+<div class="point" id="p4">5</div>
+<div class="point" id="p5">6</div>
+<div class="chest">🏆</div>
+</div>
+</div>
+
+<div id="missionScreen" class="screen">
+<div class="card">
+<h2 id="question"></h2>
+<div id="answers"></div>
+</div>
+</div>
+
+<div id="resultScreen" class="screen">
+<div class="card">
+<h2 id="resultTitle"></h2>
+<p id="resultText"></p>
+<br>
+<button class="next" id="resultBtn"></button>
+</div>
+</div>
+
+<div id="finalScreen" class="screen">
+<div class="card">
+<h1>🏆 PARABÉNS!</h1>
+<p>Você concluiu toda a jornada dos Guardiões da Verdade.</p>
+<p>Agora você sabe identificar bots, golpes e desinformação com muito mais facilidade.</p>
+</div>
+</div>
+
+<script>
+const qs=[
+["Uma conta criada ontem possui 20 mil seguidores. Isso é?",["Normal","Suspeito","Confiável"],1],
+["Antes de compartilhar uma notícia você deve...",["Verificar a fonte","Compartilhar rápido","Seguir a maioria"],0],
+["Bots geralmente...",["Publicam automaticamente","Dormem","Possuem RG"],0],
+["Uma imagem viral deve...",["Ser verificada","Ser acreditada","Ser ignorada"],0],
+["Comentários iguais em centenas de contas indicam...",["Campanha coordenada","Popularidade real","Nada"],0],
+["A melhor defesa contra fake news é...",["Pensamento crítico","Acreditar em tudo","Seguir qualquer perfil"],0]
+];
+
+let current=0;
+
+function show(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function openMission(i){
+if(i!==current)return;
+show('missionScreen');
+document.getElementById('question').innerText=qs[i][0];
+
+let html='';
+qs[i][1].forEach((op,n)=>{
+html+=`<button class="option" onclick="answer(${n})">${op}</button>`;
+});
+document.getElementById('answers').innerHTML=html;
+}
+
+function answer(n){
+if(n===qs[current][2]){
+document.getElementById('resultTitle').innerHTML='🎉 Missão Concluída!';
+document.getElementById('resultTitle').className='success';
+document.getElementById('resultText').innerHTML='Parabéns! Você identificou corretamente a situação e avançou na jornada.';
+document.getElementById('resultBtn').innerText='Continuar Jornada ➜';
+document.getElementById('resultBtn').onclick=continueGame;
+show('resultScreen');
+}else{
+document.getElementById('resultTitle').innerHTML='⚠️ Resposta Incorreta';
+document.getElementById('resultTitle').className='fail';
+document.getElementById('resultText').innerHTML='Essa é exatamente a armadilha usada por golpistas. Analise melhor e tente novamente.';
+document.getElementById('resultBtn').innerText='Tentar Novamente';
+document.getElementById('resultBtn').onclick=()=>openMission(current);
+show('resultScreen');
+}
+}
+
+function continueGame(){
+document.getElementById('p'+current).classList.add('done');
+current++;
+document.getElementById('bar').style.width=(current/6*100)+'%';
+
+if(current<6){
+let p=document.getElementById('p'+current);
+p.classList.add('unlocked');
+p.setAttribute('onclick','openMission('+current+')');
+show('mapScreen');
+}else{
+show('finalScreen');
+}
+}
+</script>
+</body>
+</html>

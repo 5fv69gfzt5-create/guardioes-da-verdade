@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Guardiões da Verdade</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:#000000;
+color:rgb(255, 255, 255);
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
+url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3');
+
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
+
+body::after{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,90,0,.15),
+rgba(255,30,30,.10)
+);
+
+z-index:-1;
+}
+
+.progress{
+position:fixed;
+top:0;
+left:0;
+height:5px;
+width:0%;
+background:linear-gradient(
+90deg,
+#ff7300,
+#ff2d2d
+);
+z-index:99999;
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 6%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+background:rgba(0,0,0,.45);
+
+backdrop-filter:blur(15px);
+
+z-index:999;
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+
+background:
+transparent;
+-webkit-background-clip:text;
+-webkit-text-fill-color:rgb(255, 255, 255);
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:.3s;
+}
+
+nav a:hover{
+color:#ff7300;
+}
+
+.hero{
+
+height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+}
+
+.hero h1{
+
+font-size:75px;
+max-width:1100px;
+
+line-height:1.1;
+
+margin-bottom:25px;
+
+background:
+linear-gradient(
+90deg,
+#ff2d2d,
+#ff7300,
+#ff2d2d
+);
+
+-webkit-backgroundclip:text;
+-webkit-text-fill-color:white;
+}
+
+.hero p{
+
+font-size:22px;
+
+max-width:900px;
+
+opacity:.95;
+}
+
+.btn{
+
+display:inline-block;
+
+margin-top:35px;
+
+padding:18px 40px;
+
+border-radius:15px;
+
+background:
+linear-gradient(
+90deg,
+#ff7300,
+#ff2d2d
+);
+
+text-decoration:none;
+
+color:white;
+
+font-weight:600;
+
+box-shadow:
+0 15px 40px rgba(255,90,0,.35);
+
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+section{
+padding:120px 10%;
+}
+
+.section-title{
+
+font-size:55px;
+
+margin-bottom:25px;
+
+color:#ff8c42;
+
+font-weight:700;
+
+text-shadow:
+0 0 15px rgba(255,120,0,.25);
+}
+
+.section-description{
+
+font-size:19px;
+
+max-width:950px;
+
+margin-bottom:50px;
+
+opacity:.9;
+}
+
+.card{
+
+background:rgba(255,255,255,.08);
+
+border:1px solid rgba(255,255,255,.1);
+
+backdrop-filter:blur(18px);
+
+padding:35px;
+
+border-radius:25px;
+
+margin-bottom:35px;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.3);
+
+opacity:0;
+transform:translateY(50px);
+
+transition:.8s;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card h3{
+font-size:30px;
+margin-bottom:15px;
+color:#ff9d5c;
+}
+
+.card p{
+font-size:17px;
+line-height:1.9;
+}
+
+.next-button{
+
+display:inline-flex;
+align-items:center;
+
+gap:10px;
+
+margin-top:20px;
+
+text-decoration:none;
+
+font-weight:600;
+
+color:#ff8c42;
+}
+
+.arrow{
+animation:seta 1.2s infinite;
+}
+
+@keyframes seta{
+
+0%{
+transform:translateX(0);
+}
+
+50%{
+transform:translateX(8px);
+}
+
+100%{
+transform:translateX(0);
+}
+
+}
+
+.help{
+
+position:fixed;
+
+bottom:25px;
+right:25px;
+
+width:70px;
+height:70px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#ff7300,
+#ff2d2d
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:32px;
+
+cursor:pointer;
+
+z-index:9999;
+
+box-shadow:
+0 10px 35px rgba(255,90,0,.35);
+}
+
+.help-box{
+
+position:fixed;
+
+right:25px;
+bottom:110px;
+
+width:330px;
+
+padding:25px;
+
+border-radius:25px;
+
+background:rgba(0,0,0,.92);
+
+display:none;
+
+z-index:9999;
+}
+
+.help-box h3{
+color:#ff8c42;
+margin-bottom:15px;
+}
+
+.help-box p{
+margin-bottom:12px;
+line-height:1.7;
+}
+
+.help-box a{
+color:#ff8c42;
+text-decoration:none;
+}
+
+footer{
+
+padding:50px;
+
+text-align:center;
+
+background:rgba(0,0,0,.5);
+}
+
+@media(max-width:900px){
+
+nav{
+flex-direction:column;
+padding:15px;
+}
+
+nav ul{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-top:10px;
+}
+
+nav a{
+font-size:14px;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.section-title{
+font-size:34px;
+}
+
+.card{
+padding:20px;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav>
+
+<div class="logo">
+Guardiões da Verdade
+</div>
+
+<ul>
+
+<li><a href="#fundamentos">Fundamentos</a></li>
+
+<li><a href="#desinformacao">Desinformação</a></li>
+
+<li><a href="#mercado">Mercado</a></li>
+
+<li><a href="#identificacao">Identificação</a></li>
+
+<li><a href="#quiz1">Quiz</a></li>
+
+<li><a href="#minigame">Mini Game</a></li>
+
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<h1>
+Combate a Bots e Contas Falsas
+</h1>
+
+<p>
+
+Um projeto desenvolvido pelo Grupo 13 para conscientizar a população sobre os riscos da desinformação, dos perfis falsos e dos golpes que circulam diariamente na internet.
+
+</p>
+
+<a href="#fundamentos" class="btn">
+
+Começar Jornada
+
+</a>
+
+</section>
+<section id="fundamentos">
+
+<h2 class="section-title">
+Fundamentos
+</h2>
+
+<p class="section-description">
+
+Antes de aprender a identificar golpes e notícias falsas, é importante entender quem está por trás de grande parte da manipulação que acontece na internet. Muitas vezes acreditamos estar interagindo com pessoas reais, quando na verdade estamos lidando com programas automatizados ou perfis criados com o objetivo de enganar.
+
+</p>
+
+<div class="card">
+
+<h3>
+O Que São Bots?
+</h3>
+
+<p>
+
+Bots são programas desenvolvidos para executar tarefas automaticamente na internet. Eles podem realizar ações em uma velocidade impossível para seres humanos, como publicar mensagens, curtir conteúdos, comentar em publicações ou seguir milhares de contas em poucos minutos.
+
+</p>
+
+<p>
+
+Nem todos os bots são ruins. Existem bots utilizados para atendimento ao cliente, envio de informações úteis, previsão do tempo e diversas outras funções legítimas. O problema acontece quando essas ferramentas são utilizadas para espalhar informações falsas, manipular opiniões ou aplicar golpes.
+
+</p>
+
+<p>
+
+Atualmente, milhares de bots atuam diariamente em redes sociais, fóruns e aplicativos de mensagens, muitas vezes passando despercebidos pelos usuários comuns.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+O Que São Contas Falsas?
+</h3>
+
+<p>
+
+Contas falsas são perfis criados utilizando informações inventadas ou roubadas. Elas podem utilizar fotos de pessoas reais sem autorização, imagens geradas por inteligência artificial ou até identidades completamente fictícias.
+
+</p>
+
+<p>
+
+O objetivo dessas contas varia. Algumas são usadas para espalhar desinformação, outras para aplicar golpes financeiros, vender produtos inexistentes ou manipular a opinião pública.
+
+</p>
+
+<p>
+
+Em muitos casos, várias contas falsas trabalham juntas, criando uma falsa sensação de popularidade e confiança em determinada publicação, produto ou pessoa.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Exemplo Prático
+</h3>
+
+<p>
+
+Imagine que uma pessoa deseja vender um produto falso pela internet. Para convencer possíveis compradores, ela cria dezenas de contas falsas que começam a comentar coisas como:
+
+</p>
+
+<p>
+
+"Comprei e chegou certinho."
+
+</p>
+
+<p>
+
+"Produto excelente, recomendo."
+
+</p>
+
+<p>
+
+"Já é minha segunda compra."
+
+</p>
+
+<p>
+
+Ao ver tantos comentários positivos, uma pessoa desinformada pode acreditar que o produto é confiável e acabar realizando a compra, caindo em um golpe.
+
+</p>
+
+<p>
+
+Situações semelhantes acontecem diariamente em plataformas como Instagram, Discord, Facebook, TikTok e diversas lojas virtuais.
+
+</p>
+
+<a href="#desinformacao" class="next-button">
+
+Próxima Seção
+
+<span class="arrow">
+➜
+</span>
+
+</a>
+
+</div>
+
+</section>
+
+<section id="desinformacao">
+
+<h2 class="section-title">
+A Anatomia da Desinformação
+</h2>
+
+<p class="section-description">
+
+A desinformação não surge do nada. Ela normalmente é planejada e distribuída de forma estratégica para alcançar o maior número possível de pessoas. Bots e contas falsas trabalham juntos para amplificar conteúdos enganosos e fazer com que pareçam verdadeiros.
+
+</p>
+
+<div class="card">
+
+<h3>
+Amplificação Artificial
+</h3>
+
+<p>
+
+Uma das estratégias mais comuns utilizadas por bots é a amplificação artificial de conteúdo. Isso acontece quando centenas ou milhares de perfis automatizados curtem, compartilham ou comentam uma publicação em poucos minutos.
+
+</p>
+
+<p>
+
+O objetivo é fazer os algoritmos das redes sociais acreditarem que aquele conteúdo é relevante, aumentando sua visibilidade para mais pessoas.
+
+</p>
+
+<p>
+
+Mesmo que a informação seja falsa, ela pode alcançar milhares de usuários simplesmente porque parece popular.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Criação de Narrativas Falsas
+</h3>
+
+<p>
+
+Outra estratégia muito utilizada consiste na criação de histórias falsas ou distorcidas. Essas informações costumam explorar emoções fortes, como medo, raiva ou indignação, pois conteúdos emocionais tendem a ser compartilhados mais rapidamente.
+
+</p>
+
+<p>
+
+Com o apoio de contas falsas, essas narrativas ganham força e podem influenciar decisões importantes da população.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Ataques Coordenados
+</h3>
+
+<p>
+
+Além de espalhar desinformação, grupos organizados também utilizam bots para atacar pessoas, empresas e instituições.
+
+</p>
+
+<p>
+
+Esses ataques geralmente envolvem comentários ofensivos, divulgação de informações falsas e tentativas de prejudicar reputações em larga escala.
+
+</p>
+
+<p>
+
+Em poucos minutos, centenas de contas podem publicar mensagens semelhantes, criando a impressão de que existe uma enorme quantidade de pessoas apoiando aquele ataque.
+
+</p>
+
+</div>
+
+</section>
+<section id="mercado">
+
+<h2 class="section-title">
+O Mercado Clandestino da Desinformação
+</h2>
+
+<p class="section-description">
+
+Muitas pessoas acreditam que bots e contas falsas surgem apenas por diversão, mas a realidade é muito diferente. Atualmente existe um mercado clandestino extremamente lucrativo onde seguidores, curtidas, comentários e até campanhas inteiras de manipulação podem ser comprados facilmente.
+
+</p>
+
+<div class="card">
+
+<h3>
+Um Negócio Bilionário
+</h3>
+
+<p>
+
+A desinformação se tornou uma ferramenta utilizada por pessoas e organizações que desejam influenciar opiniões ou obter vantagens financeiras.
+
+</p>
+
+<p>
+
+Na internet é possível encontrar serviços que oferecem milhares de seguidores falsos, curtidas automáticas e comentários programados por preços muito baixos.
+
+</p>
+
+<p>
+
+Isso permite que praticamente qualquer pessoa crie uma falsa sensação de popularidade ou credibilidade sem precisar conquistar um público real.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Como Funciona?
+</h3>
+
+<p>
+
+Empresas clandestinas utilizam programas automatizados para criar milhares de perfis falsos em redes sociais.
+
+</p>
+
+<p>
+
+Esses perfis são utilizados para seguir contas, comentar publicações e compartilhar conteúdos específicos de forma coordenada.
+
+</p>
+
+<p>
+
+Muitas vezes essas contas permanecem ativas durante meses para parecerem mais reais e dificultar sua identificação.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Por Que Isso É Perigoso?
+</h3>
+
+<p>
+
+Quando uma publicação recebe milhares de curtidas e comentários positivos falsos, muitas pessoas passam a acreditar que aquela informação é verdadeira apenas porque parece popular.
+
+</p>
+
+<p>
+
+Esse fenômeno pode influenciar decisões de compra, opiniões políticas e até comportamentos sociais.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="quem-compra">
+
+<h2 class="section-title">
+Quem Compra Desinformação?
+</h2>
+
+<p class="section-description">
+
+Diversos grupos podem utilizar bots e contas falsas para alcançar objetivos específicos. Nem sempre o objetivo é financeiro; em alguns casos busca-se influência, visibilidade ou manipulação de opiniões.
+
+</p>
+
+<div class="card">
+
+<h3>
+Grupos Políticos
+</h3>
+
+<p>
+
+Alguns grupos utilizam bots para promover candidatos, atacar adversários e aumentar artificialmente a popularidade de determinadas ideias.
+
+</p>
+
+<p>
+
+Isso pode criar uma falsa impressão de apoio popular e influenciar o debate público.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Empresas Antiéticas
+</h3>
+
+<p>
+
+Algumas empresas recorrem a avaliações falsas para melhorar sua reputação ou prejudicar concorrentes.
+
+</p>
+
+<p>
+
+Comentários positivos falsos podem fazer produtos de baixa qualidade parecerem excelentes.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Criminosos Digitais
+</h3>
+
+<p>
+
+Golpistas utilizam perfis falsos para aplicar fraudes financeiras, roubar informações pessoais e enganar usuários desatentos.
+
+</p>
+
+<p>
+
+Muitos golpes online utilizam falsas avaliações positivas para transmitir confiança às vítimas.
+
+</p>
+
+</div>
+
+<a href="#identificacao" class="next-button">
+
+Próxima Seção
+
+<span class="arrow">
+➜
+</span>
+
+</a>
+
+</section>
+
+<section id="identificacao">
+
+<h2 class="section-title">
+Desafios na Identificação
+</h2>
+
+<p class="section-description">
+
+Identificar bots e contas falsas se tornou cada vez mais difícil. Com o avanço da tecnologia e da inteligência artificial, muitos desses perfis conseguem imitar comportamentos humanos de forma extremamente convincente.
+
+</p>
+
+<div class="card">
+
+<h3>
+Sofisticação Crescente
+</h3>
+
+<p>
+
+Hoje existem perfis falsos que possuem fotos geradas por inteligência artificial, histórico de publicações e interações aparentemente normais.
+
+</p>
+
+<p>
+
+À primeira vista, eles podem parecer completamente legítimos.
+
+</p>
+
+<p>
+
+Essa evolução tecnológica torna a identificação muito mais complexa para usuários comuns.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Velocidade Incontrolável
+</h3>
+
+<p>
+
+Enquanto uma pessoa leva vários minutos para analisar uma informação, bots conseguem espalhar milhares de mensagens em questão de segundos.
+
+</p>
+
+<p>
+
+Essa velocidade dificulta a atuação das plataformas e favorece a propagação rápida da desinformação.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Escala Massiva
+</h3>
+
+<p>
+
+Milhões de publicações são realizadas diariamente nas redes sociais.
+
+</p>
+
+<p>
+
+Monitorar manualmente todas essas atividades é praticamente impossível, obrigando as plataformas a utilizarem sistemas automatizados de detecção.
+
+</p>
+
+<p>
+
+Mesmo assim, muitos bots conseguem escapar dessas verificações.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Tentativas de Transparência
+</h3>
+
+<p>
+
+Algumas redes sociais começaram a implementar recursos para ajudar usuários a identificar perfis suspeitos.
+
+</p>
+
+<p>
+
+Informações como data de criação da conta, alterações de nome e localização aproximada podem fornecer pistas importantes sobre a autenticidade de um perfil.
+
+</p>
+
+<p>
+
+Apesar desses avanços, ainda é necessário que os usuários desenvolvam pensamento crítico ao analisar conteúdos online.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Sinais de Alerta
+</h3>
+
+<p>
+
+Alguns comportamentos podem indicar que uma conta não é confiável:
+
+</p>
+
+<p>
+
+• Perfil criado recentemente.<br>
+• Muitos seguidores e poucos conteúdos.<br>
+• Comentários repetitivos.<br>
+• Publicações em intervalos impossíveis para um ser humano.<br>
+• Ausência de informações pessoais verificáveis.<br>
+• Compartilhamento excessivo de conteúdos políticos ou sensacionalistas.
+
+</p>
+
+<p>
+
+Nenhum desses fatores sozinho prova que uma conta é falsa, mas a combinação de vários deles merece atenção.
+
+</p>
+
+</div>
+
+</section>
+<section id="quiz1">
+
+<h2 class="section-title">
+Quiz • Nível 1
+</h2>
+
+<p class="section-description">
+
+Agora que você já conhece os conceitos básicos sobre bots e contas falsas, chegou a hora de testar seus conhecimentos. Leia cada situação com atenção antes de responder.
+
+</p>
+
+<div class="card">
+
+<h3>
+Pergunta 1
+</h3>
+
+<p>
+
+Um perfil possui mais de 10.000 seguidores, porém tem apenas 3 publicações feitas nos últimos 5 anos, não possui foto real e utiliza um nome extremamente genérico.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Suspeito/Bot — existe uma grande desproporção entre seguidores e atividade real.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Pergunta 2
+</h3>
+
+<p>
+
+Uma conta publica aproximadamente 50 vezes por hora, sempre sobre o mesmo tema político e nunca responde comentários.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Bot automatizado — a frequência é incompatível com o comportamento humano normal.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Pergunta 3
+</h3>
+
+<p>
+
+Um perfil criado há apenas dois dias já possui milhares de seguidores e publica exclusivamente conteúdos relacionados a um único candidato político.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Conta falsa ou artificialmente impulsionada.
+
+</p>
+
+<p>
+
+Esses sinais não são provas absolutas, mas representam fortes indícios de comportamento suspeito.
+
+</p>
+
+</div>
+
+<a href="#defesa" class="next-button">
+
+Próxima Seção
+
+<span class="arrow">
+➜
+</span>
+
+</a>
+
+</section>
+
+<section id="defesa">
+
+<h2 class="section-title">
+Neutralizando a Ameaça
+</h2>
+
+<p class="section-description">
+
+O combate à desinformação depende da participação de plataformas digitais, governos e usuários. Quanto mais conhecimento uma pessoa possui, menores são as chances de cair em golpes ou espalhar informações falsas.
+
+</p>
+
+<div class="card">
+
+<h3>
+Plataformas Digitais
+</h3>
+
+<p>
+
+Redes sociais investem constantemente em sistemas de detecção automatizada capazes de identificar comportamentos suspeitos.
+
+</p>
+
+<p>
+
+Esses sistemas analisam padrões de atividade, frequência de publicações, origem das contas e comportamento dos usuários.
+
+</p>
+
+<p>
+
+Mesmo assim, criminosos continuam criando novas estratégias para tentar burlar esses mecanismos.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Usuários Conscientes
+</h3>
+
+<p>
+
+Cada usuário possui um papel importante na luta contra a desinformação.
+
+</p>
+
+<p>
+
+Antes de compartilhar qualquer conteúdo, é fundamental verificar sua origem, pesquisar outras fontes e analisar se a informação realmente é confiável.
+
+</p>
+
+<p>
+
+Além disso, denunciar perfis suspeitos ajuda as plataformas a identificar comportamentos maliciosos mais rapidamente.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Governos e Reguladores
+</h3>
+
+<p>
+
+Diversos países discutem leis específicas para combater campanhas de desinformação e responsabilizar grupos que utilizam bots para manipular opiniões ou aplicar golpes.
+
+</p>
+
+<p>
+
+O objetivo é criar um ambiente digital mais seguro e transparente para todos os usuários.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="ferramentas">
+
+<h2 class="section-title">
+Ferramentas de Verificação
+</h2>
+
+<p class="section-description">
+
+Existem diversas ferramentas gratuitas que ajudam qualquer pessoa a verificar informações antes de acreditar ou compartilhar conteúdos encontrados na internet.
+
+</p>
+
+<div class="card">
+
+<h3>
+Google Imagens
+</h3>
+
+<p>
+
+A pesquisa reversa permite descobrir onde uma imagem apareceu pela primeira vez.
+
+</p>
+
+<p>
+
+Muitas fake news utilizam fotografias antigas retiradas de outros contextos para enganar usuários.
+
+</p>
+
+<p>
+
+Ao realizar uma pesquisa reversa é possível descobrir a verdadeira origem daquela imagem.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+TinEye
+</h3>
+
+<p>
+
+O TinEye é uma plataforma especializada em pesquisa reversa de imagens.
+
+</p>
+
+<p>
+
+Ele ajuda a identificar edições, reutilizações indevidas e possíveis tentativas de manipulação visual.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Agência Lupa
+</h3>
+
+<p>
+
+Uma das principais organizações brasileiras de verificação de fatos.
+
+</p>
+
+<p>
+
+A plataforma investiga boatos, notícias suspeitas e conteúdos virais compartilhados nas redes sociais.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Aos Fatos
+</h3>
+
+<p>
+
+Outro importante serviço brasileiro de checagem de informações.
+
+</p>
+
+<p>
+
+A plataforma analisa discursos públicos, publicações virais e conteúdos suspeitos para determinar sua veracidade.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="quiz2">
+
+<h2 class="section-title">
+Quiz • Nível 2
+</h2>
+
+<p class="section-description">
+
+Agora os cenários ficam mais complexos. É necessário analisar diferentes fatores antes de chegar a uma conclusão.
+
+</p>
+
+<div class="card">
+
+<h3>
+Cenário 1
+</h3>
+
+<p>
+
+Uma notícia cheia de erros de português, sem autor identificado, começa a ser compartilhada por centenas de contas recém-criadas em menos de uma hora.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Campanha de desinformação coordenada.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Cenário 2
+</h3>
+
+<p>
+
+Uma conta que publicava conteúdos variados há vários anos passa repentinamente a publicar apenas conteúdos políticos durante uma eleição.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Situação que exige análise aprofundada. A conta pode ter sido comprometida, vendida ou influenciada.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Cenário 3
+</h3>
+
+<p>
+
+Uma imagem viral afirma mostrar um acontecimento atual, porém a pesquisa reversa revela que a fotografia foi tirada em outro país há vários anos.
+
+</p>
+
+<p>
+
+<strong>Resposta:</strong><br>
+
+✔ Desinformação comprovada. A imagem é real, mas foi utilizada fora de contexto.
+
+</p>
+
+</div>
+
+<a href="#quiz3" class="next-button">
+
+Próxima Seção
+
+<span class="arrow">
+➜
+</span>
+
+</a>
+
+</section>
+<section id="quiz3">
+
+<h2 class="section-title">
+Quiz • Nível 3
+</h2>
+
+<p class="section-description">
+
+Agora você chegou ao nível avançado. Aqui é necessário utilizar pensamento crítico para analisar campanhas de desinformação mais complexas.
+
+</p>
+
+<div class="card">
+
+<h3>
+Simulação 1
+</h3>
+
+<p>
+
+Você encontra uma publicação acusando um candidato político de um crime grave. Centenas de perfis recém-criados compartilham o conteúdo, mas nenhuma fonte confiável é apresentada.
+
+</p>
+
+<p>
+
+✔ Resposta correta: Procurar fontes confiáveis e verificar as informações antes de acreditar ou compartilhar.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Simulação 2
+</h3>
+
+<p>
+
+Um influenciador que você acompanha começa a publicar mensagens extremamente parecidas com dezenas de perfis desconhecidos.
+
+</p>
+
+<p>
+
+✔ Resposta correta: Investigar a origem das informações e verificar se existe uma campanha coordenada.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Simulação 3
+</h3>
+
+<p>
+
+Uma conta antiga e aparentemente confiável começa a compartilhar conteúdos radicais. Depois descobre-se que ela foi hackeada.
+
+</p>
+
+<p>
+
+✔ Resposta correta: A idade da conta não garante sua confiabilidade.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="solucao">
+
+<h2 class="section-title">
+Nossa Solução
+</h2>
+
+<p class="section-description">
+
+Para ajudar a combater esse problema, criamos o projeto Guardiões da Verdade.
+
+</p>
+
+<div class="card">
+
+<h3>
+Como Surgiu a Ideia
+</h3>
+
+<p>
+
+Nossa equipe escolheu este tema porque já tivemos contato com golpes online em redes sociais e plataformas de compra.
+
+</p>
+
+<p>
+
+Observamos perfis falsos deixando avaliações positivas em produtos e serviços para enganar usuários e transmitir uma falsa sensação de segurança.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+O Site Guardiões da Verdade
+</h3>
+
+<p>
+
+Desenvolvemos um site educativo com o objetivo de ensinar pessoas a identificar bots, contas falsas e campanhas de desinformação.
+
+</p>
+
+<p>
+
+O site apresenta explicações, exemplos práticos e quizzes interativos para tornar o aprendizado mais simples e acessível.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Objetivo do Projeto
+</h3>
+
+<p>
+
+Nosso objetivo é aumentar a conscientização digital e ajudar principalmente pessoas menos experientes a navegar pela internet de forma mais segura.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="grupo">
+
+<h2 class="section-title">
+Grupo 13
+</h2>
+
+<div class="card">
+
+<h3>
+Integrantes
+</h3>
+
+<p>
+
+Mateus Waltrick Marques<br>
+Carlos Henrique<br>
+Luiz Francisco
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Instituição
+</h3>
+
+<p>
+
+CESI – Centro Educacional Santa Isabel<br>
+Viamão – Rio Grande do Sul
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Professor Orientador
+</h3>
+
+<p>
+
+Willians Fortes da Costa
+
+</p>
+
+</div>
+
+</section>
+
+<section id="minigame">
+
+<h2 class="section-title">
+Mapa da Verdade
+</h2>
+
+<p class="section-description">
+Encontre os pontos do mapa e responda corretamente para avançar.
+</p>
+
+<div class="card">
+
+<a href="mapa.html" class="btn">
+🎮 Abrir Mini Game
+</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<h2>
+Obrigado pela Visita!
+</h2>
+
+<p>
+
+Lembre-se: antes de compartilhar qualquer informação, verifique a fonte.
+
+Combater a desinformação é uma responsabilidade de todos.
+
+</p>
+
+<p>
+
+📧 Contato:
+mateuswaltrick229@icloud.com
+
+</p>
+
+</footer>
+
+<div class="help" onclick="toggleHelp()">
+?
+</div>
+
+<div class="help-box" id="helpBox">
+
+<h3>
+Central de Ajuda
+</h3>
+
+<p>
+✔ Verifique a data de criação dos perfis.
+</p>
+
+<p>
+✔ Desconfie de comentários repetidos.
+</p>
+
+<p>
+✔ Consulte fontes confiáveis.
+</p>
+
+<p>
+
+📧 Suporte:
+
+<br><br>
+
+<a href="mailto:mateuswaltrick229@icloud.com">
+
+mateuswaltrick229@icloud.com
+
+</a>
+
+</p>
+
+</div>
+
+<script>
+
+const cards =
+document.querySelectorAll('.card');
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add('show');
+
+}
+
+});
+
+},{threshold:.15});
+
+cards.forEach(card=>
+observer.observe(card)
+);
+
+window.addEventListener('scroll',()=>{
+
+const scrollTop =
+window.scrollY;
+
+const docHeight =
+document.body.scrollHeight
+-
+window.innerHeight;
+
+const progress =
+(scrollTop/docHeight)*100;
+
+document.getElementById('progress').style.width =
+progress + '%';
+
+});
+
+function toggleHelp(){
+
+const help =
+document.getElementById('helpBox');
+
+if(help.style.display==='block'){
+
+help.style.display='none';
+
+}else{
+
+help.style.display='block';
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
